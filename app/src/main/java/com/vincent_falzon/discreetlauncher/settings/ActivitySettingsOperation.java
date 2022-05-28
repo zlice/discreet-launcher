@@ -35,7 +35,6 @@ import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;
 import com.vincent_falzon.discreetlauncher.core.Application ;
-import com.vincent_falzon.discreetlauncher.core.Folder ;
 import java.util.ArrayList ;
 
 /**
@@ -117,14 +116,13 @@ public class ActivitySettingsOperation extends AppCompatActivity
 	private void loadInstalledApplications()
 	{
 		// Retrieve the list of all installed applications
-		ArrayList<Application> allApplications = ActivityMain.getApplicationsList().getApplications(true) ;
+		ArrayList<Application> allApplications = ActivityMain.getApplicationsList().getApplications() ;
 
 		// Store the retrieved information in the lists
 		for(Application application : allApplications)
 		{
 			applicationsComponentInfos.add(application.getComponentInfo()) ;
-			if(application instanceof Folder) applicationsNames.add(((Folder)application).getDisplayNameWithCount()) ;
-				else applicationsNames.add(application.getDisplayName()) ;
+			applicationsNames.add(application.getDisplayName()) ;
 		}
 	}
 

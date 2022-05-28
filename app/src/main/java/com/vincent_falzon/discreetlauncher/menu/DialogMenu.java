@@ -35,7 +35,6 @@ import androidx.appcompat.app.AlertDialog ;
 import androidx.appcompat.app.AppCompatDialog ;
 import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.R ;
-import com.vincent_falzon.discreetlauncher.settings.ActivityExportImport ;
 import com.vincent_falzon.discreetlauncher.settings.ActivitySettingsAppearance ;
 import com.vincent_falzon.discreetlauncher.settings.ActivitySettingsOperation ;
 
@@ -68,10 +67,8 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 		initializeMenuEntry(R.id.menu_refresh_list) ;
 		initializeMenuEntry(R.id.menu_settings_appearance) ;
 		initializeMenuEntry(R.id.menu_settings_operation) ;
-		initializeMenuEntry(R.id.menu_export_import) ;
 		initializeMenuEntry(R.id.menu_help) ;
 		initializeMenuEntry(R.id.menu_about) ;
-		initializeMenuEntry(R.id.menu_changelog) ;
 	}
 
 
@@ -103,11 +100,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 				// Open the Favorites activity
 				context.startActivity(new Intent().setClass(context, ActivityFavorites.class)) ;
 			}
-			else if(selection == R.id.menu_folders)
-			{
-				// Open the Folders activity
-				context.startActivity(new Intent().setClass(context, ActivityFolders.class)) ;
-			}
 			else if(selection == R.id.menu_hidden_apps)
 			{
 				// Open the Hidden apps dialog
@@ -132,11 +124,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 				// Open the Settings > Operation activity
 				context.startActivity(new Intent().setClass(context, ActivitySettingsOperation.class)) ;
 			}
-			else if(selection == R.id.menu_export_import)
-			{
-				// Open the Export / Import activity
-				context.startActivity(new Intent().setClass(context, ActivityExportImport.class)) ;
-			}
 			else if(selection == R.id.menu_help)
 			{
 				// Display the Help without dismissing the menu
@@ -152,13 +139,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 				AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
 				dialog.setView(R.layout.dialog_about) ;
 				dialog.setPositiveButton(R.string.button_close, null) ;
-				dialog.show() ;
-				return ;
-			}
-			else if(selection == R.id.menu_changelog)
-			{
-				// Display the Changelog without dismissing the menu
-				DialogChangelog dialog = new DialogChangelog(context) ;
 				dialog.show() ;
 				return ;
 			}

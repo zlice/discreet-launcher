@@ -43,8 +43,8 @@ import androidx.core.content.res.ResourcesCompat ;
 import androidx.preference.PreferenceManager ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;
-import com.vincent_falzon.discreetlauncher.settings.ColorPickerDialog ;
 import com.vincent_falzon.discreetlauncher.storage.* ;
+import com.vincent_falzon.discreetlauncher.Utils;
 import java.util.ArrayList ;
 import java.util.Collections ;
 import java.util.Comparator ;
@@ -101,7 +101,7 @@ public class ApplicationsList
 		String color_tint_setting = settings.getString(Constants.ICON_COLOR_FILTER, Constants.COLOR_TRANSPARENT) ;
 		int color_tint ;
 		if((color_tint_setting == null) || color_tint_setting.equals(Constants.COLOR_TRANSPARENT)) color_tint = 0 ;
-			else color_tint = ColorPickerDialog.convertHexadecimalColorToInt(color_tint_setting) ;
+			else color_tint = Utils.convertHexadecimalColorToInt(color_tint_setting) ;
 
 		// Retrieve the list of user profiles
 		UserManager userManager = (UserManager)context.getSystemService(Context.USER_SERVICE) ;
@@ -172,9 +172,6 @@ public class ApplicationsList
 		// Hide application based on the internal file
 		manageHiddenApplications() ;
 
-		// Prepare folders according to files
-		prepareFolders(context, reversed) ;
-
 		// Update the favorites applications list
 		updateFavorites() ;
 	}
@@ -227,7 +224,7 @@ public class ApplicationsList
 		for(String line : favorites_file)
 		{
 			// Search the ComponentInfo in the applications list
-			for(Application application : getApplications(true))
+			for(Application application : getApplications())
 				if(application.getComponentInfo().equals(line))
 					{
 						// Add the application to the favorites and move to the next line
@@ -236,83 +233,6 @@ public class ApplicationsList
 					}
 		}
 	}
-
-
-	/**
-	 * Prepare folders according to the folders files.
-	 */
-	private void prepareFolders(Context context, boolean reversed)
-	{
-		// Initializations
-		String[] folders_files = InternalFile.searchFilesStartingWith(context, Constants.FILE_FOLDER_PREFIX) ;
-		if(folders_files == null) return ;
-		int icon_size = Math.round(48 * context.getResources().getDisplayMetrics().density) ;
-
-		// Retrieve fhe folders colors mapping file if it exists
-		ArrayList<String> folders_colors_file = new InternalFileTXT(Constants.FILE_FOLDERS_COLORS).readAllLines() ;
-
-		// Browse the name of all folders files
-		ArrayList<Folder> folders = new ArrayList<>() ;
-		for(String filename : folders_files)
-		{
-			// Load the file, or skip it if it does not exist
-			ArrayList<String> folder_file = new InternalFileTXT(filename).readAllLines() ;
-			if(folder_file == null) continue ;
-
-			// Convert the folder from the name format to ComponentInfo format if needed
-			folder_file = convertComponentInfo(filename, folder_file) ;
-
-			// Check if a color has beed defined for this folder or use the default white
-			int color = context.getResources().getColor(R.color.for_icon_added_in_drawer) ;
-			if(folders_colors_file != null)
-				for(String mapping : folders_colors_file)
-					if(mapping.startsWith(filename))
-						{
-							color = ColorPickerDialog.convertHexadecimalColorToInt(mapping.replace(filename + Constants.SEPARATOR, "")) ;
-							break ;
-						}
-
-			// Retrieve the name of the folder and create it
-			String folder_name = filename.replace(Constants.FILE_FOLDER_PREFIX, "").replace(".txt", "") ;
-			Folder folder = new Folder(folder_name, null, color) ;
-
-			// Browse the lines of the file to get the list of applications to put in the folder
-			for(String component_info : folder_file)
-			{
-				// Search the internal name in the applications list
-				for(Application application : drawer)
-					if(application.getComponentInfo().equals(component_info))
-						{
-							// Move the application in the folder
-							folder.addToFolder(application) ;
-							drawer.remove(application) ;
-							break ;
-						}
-			}
-
-			// Create the folder icon with the number of applications inside and the selected color
-			Drawable icon = new FolderIcon(context, folder.getApplications().size(), folder.getColor()) ;
-			icon.setBounds(0, 0, icon_size, icon_size) ;
-			folder.setIcon(icon) ;
-
-			// Sort the folder content and add it to the list of folders
-			folder.sortFolder() ;
-			folders.add(folder) ;
-		}
-
-		// Sort the folders and add them at the beginning or end of the list (based on layout)
-		Collections.sort(folders, new Comparator<Folder>()
-		{
-			@Override
-			public int compare(Folder folder1, Folder folder2)
-			{
-				return folder1.getDisplayName().compareToIgnoreCase(folder2.getDisplayName()) ;
-			}
-		}) ;
-		if(reversed) drawer.addAll(folders) ;
-			else drawer.addAll(0, folders) ;
-	}
-
 
 	/**
 	 * Hide applications based on the internal file (to apply before folders).
@@ -433,18 +353,6 @@ public class ApplicationsList
 
 
 	/**
-	 * Return the list of folders.
-	 */
-	public ArrayList<Folder> getFolders()
-	{
-		ArrayList<Folder> result = new ArrayList<>() ;
-		for(Application application : drawer)
-			if(application instanceof Folder) result.add((Folder)application) ;
-		return result ;
-	}
-
-
-	/**
 	 * Return the list of applications which are not in folders.
 	 */
 	public ArrayList<Application> getApplicationsNotInFolders()
@@ -456,7 +364,7 @@ public class ApplicationsList
 			if(application instanceof Search) continue ;
 
 			// Add all user applications outside folders
-			if(!(application instanceof Folder)) result.add(application) ;
+			result.add(application) ;
 		}
 		return result ;
 	}
@@ -465,20 +373,13 @@ public class ApplicationsList
 	/**
 	 * Return all applications (except hidden), including or not those which are in folders.
 	 */
-	public ArrayList<Application> getApplications(boolean with_folders)
+	public ArrayList<Application> getApplications()
 	{
 		// Aggregate all applications in one list
 		ArrayList<Application> allApplications = new ArrayList<>() ;
-		ArrayList<Folder> folders = new ArrayList<>() ;
 		for(Application application : drawer)
 		{
-			// Add all applications whether or not they are in folders
-			if(application instanceof Folder)
-				{
-					allApplications.addAll(((Folder)application).getApplications()) ;
-					folders.add((Folder)application) ;
-				}
-				else allApplications.add(application) ;
+		  allApplications.add(application) ;
 		}
 
 		// Sort the list in alphabetic order based on display name
@@ -508,21 +409,6 @@ public class ApplicationsList
 				Application search = allApplications.get(search_index) ;
 				allApplications.remove(search_index) ;
 				allApplications.add(0, search) ;
-			}
-
-		// If requested, add folders at the beginning of the list
-		if(with_folders)
-			{
-				// Sort the folders and add them at the beginning of the list
-				Collections.sort(folders, new Comparator<Folder>()
-				{
-					@Override
-					public int compare(Folder folder1, Folder folder2)
-					{
-						return folder1.getDisplayName().compareToIgnoreCase(folder2.getDisplayName()) ;
-					}
-				}) ;
-				allApplications.addAll(0, folders) ;
 			}
 
 		// Return the result
@@ -574,7 +460,7 @@ public class ApplicationsList
 				}
 
 			// Search the internal name in the applications list
-			for(Application application : getApplications(true))
+			for(Application application : getApplications())
 				if(application.getName().equals(line))
 					{
 						// Retrieve the ComponentInfo of the application

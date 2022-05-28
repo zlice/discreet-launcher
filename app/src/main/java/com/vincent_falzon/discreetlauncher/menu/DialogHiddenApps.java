@@ -31,7 +31,6 @@ import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;
 import com.vincent_falzon.discreetlauncher.core.Application ;
-import com.vincent_falzon.discreetlauncher.core.Folder ;
 import com.vincent_falzon.discreetlauncher.storage.InternalFileTXT ;
 import java.util.ArrayList ;
 
@@ -48,7 +47,7 @@ public abstract class DialogHiddenApps
 		// Prepare the list of applications
 		if(context == null) return ;
 		final ArrayList<Application> applications = new ArrayList<>(ActivityMain.getApplicationsList().getHidden()) ;
-		for(Application application : ActivityMain.getApplicationsList().getApplications(false))
+		for(Application application : ActivityMain.getApplicationsList().getApplications())
 		{
 			// Never hide the Discreet Launcher icon (as it can be the only access to the menu)
 			if(application.getApk().equals(context.getPackageName())) continue ;
@@ -60,8 +59,7 @@ public abstract class DialogHiddenApps
 		int i = 0 ;
 		for(Application application : applications)
 		{
-			if(application instanceof Folder) app_names[i] = ((Folder)application).getDisplayNameWithCount() ;
-				else app_names[i] = application.getDisplayName() ;
+			app_names[i] = application.getDisplayName() ;
 			i++ ;
 		}
 

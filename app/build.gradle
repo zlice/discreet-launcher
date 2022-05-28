@@ -5,8 +5,8 @@ apply plugin: 'com.android.application'
 android
 {
     // API level used to compile the application
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 31
+    // buildToolsVersion "30.0.2"
 
     defaultConfig
     {
@@ -14,8 +14,8 @@ android
         applicationId "com.vincent_falzon.discreetlauncher"
 
         // Minimum API required and API used for compilation
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 31
+        targetSdkVersion 31
 
         // Versioning
         versionCode 51
@@ -34,6 +34,7 @@ android
         {
             // Enable code shrinking, obfuscation and optimization to lower APK size
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             // Allow usage of the version name in XML

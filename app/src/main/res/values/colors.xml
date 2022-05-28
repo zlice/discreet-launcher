@@ -8,9 +8,7 @@
     <color name="blue_gray">#666F99</color>
     <color name="blue_violet">#3F51B5</color>
     <color name="blue_marine">#303F9F</color>
-    <color name="gray_very_light">#CCCCCC</color>
     <color name="transparent">#00000000</color>
-    <color name="transparent_white">#00FFFFFF</color>
     <color name="translucent_gray">#66000000</color>
     <color name="translucent_gray_black">#ED353535</color>
     <color name="translucent_white">#BBFFFFFF</color>
@@ -18,15 +16,12 @@
 
     <!-- Color assignments -->
     <color name="for_action_bar">@color/blue_violet</color>
-    <color name="for_color_picker_preview_grid">@color/gray_very_light</color>
     <color name="for_button_text">@color/white</color>
     <color name="for_buttons_and_controls">@color/blue_discreet_launcher</color>
     <color name="for_help_titles">@color/blue_discreet_launcher</color>
     <color name="for_icon_discreet_launcher">@color/blue_discreet_launcher</color>
     <color name="for_icon_added_in_drawer">@color/white</color>
     <color name="for_menu_highlight_and_dividers">@color/blue_lavender</color>
-    <color name="for_notification_icon">@color/transparent_white</color>
-    <color name="for_notification_background">@color/white</color>
     <color name="for_overlay">@color/translucent_gray</color>
     <color name="for_popup_background">@color/translucent_gray_black</color>
     <color name="for_popup_line">@color/translucent_white</color>

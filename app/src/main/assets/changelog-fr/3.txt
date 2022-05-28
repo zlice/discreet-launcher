@@ -1,3 +1,0 @@
-v1.0.2 (03) - 07/03/2021
-CORRECTIONS
-   - Bug avec le bouton Retour (@abou123)

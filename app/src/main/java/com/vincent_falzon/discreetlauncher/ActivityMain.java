@@ -45,12 +45,10 @@ import android.widget.RelativeLayout ;
 import android.widget.TextView ;
 import com.vincent_falzon.discreetlauncher.core.Application ;
 import com.vincent_falzon.discreetlauncher.core.ApplicationsList ;
-import com.vincent_falzon.discreetlauncher.core.Folder ;
 import com.vincent_falzon.discreetlauncher.core.Search ;
 import com.vincent_falzon.discreetlauncher.events.ShortcutLegacyListener ;
 import com.vincent_falzon.discreetlauncher.events.PackagesListener ;
 import com.vincent_falzon.discreetlauncher.menu.DialogMenu ;
-import com.vincent_falzon.discreetlauncher.quickaccess.NotificationDisplayer ;
 
 /**
  * Main class activity managing the home screen and applications drawer.
@@ -67,7 +65,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   private ShortcutLegacyListener shortcutLegacyListener ;
   private SharedPreferences settings ;
   private GestureDetectorCompat gestureDetector ;
-  private NotificationDisplayer notification ;
   private DialogMenu dialogMenu ;
   private float density ;
   private int scroll_position ;
@@ -90,7 +87,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   private RecyclerAdapter drawerAdapter ;
   private GridLayoutManager drawerLayout ;
 
-  
+
   /**
    * Constructor.
    */
@@ -147,11 +144,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     keepMenuAccessible() ;
     toggleTouchTargets() ;
     maybeHideSystemBars(false) ;
-
-    // Prepare the notification
-    notification = new NotificationDisplayer(this) ;
-    if(settings.getBoolean(Constants.NOTIFICATION, true)) notification.display(this) ;
-      else notification.hide() ;
 
     // Define the width of an application item
     int padding ;
@@ -309,12 +301,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
       // Search if the launcher icon or Search app is in favorites
       if(application instanceof Search) return ;
         else if(application.getComponentInfo().equals(launcher)) return ;
-        else if(application instanceof Folder)
-        {
-          // Also search the launcher icon in folders
-          for(Application folder_application : ((Folder)application).getApplications())
-            if(folder_application.getComponentInfo().equals(launcher)) return ;
-        }
     }
 
     // If the drawer cannot be safely disabled, display a message and disable the setting
@@ -726,7 +712,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         return false ;
 
       // Search the application in the list
-      for(Application application : applicationsList.getApplications(true))
+      for(Application application : applicationsList.getApplications())
         if(application.getComponentInfo().equals(component_info))
           {
             // Start the application
@@ -770,7 +756,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         setApplicationTheme() ;
         break ;
       case Constants.HIDE_APP_NAMES :
-      case Constants.HIDE_FOLDER_NAMES :
       case Constants.REMOVE_PADDING :
         // Update the column width
         recreate() ;
@@ -790,11 +775,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         updateList(this) ;
         break ;
       // ========= Operation settings ==========
-      case Constants.NOTIFICATION :
-        // Toggle the notification
-        if(settings.getBoolean(Constants.NOTIFICATION, true)) notification.display(this) ;
-          else notification.hide() ;
-        break ;
       case Constants.REVERSE_INTERFACE :
         // Change the interface direction
         reverse_interface = settings.getBoolean(Constants.REVERSE_INTERFACE, false) ;
@@ -940,7 +920,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     // Hide popups if some are still opened
     for(Application application : applicationsList.getDrawer())
     {
-      if(application instanceof Folder) ((Folder)application).closePopup() ;
       if(application instanceof Search) ((Search)application).closePopup() ;
     }
   }

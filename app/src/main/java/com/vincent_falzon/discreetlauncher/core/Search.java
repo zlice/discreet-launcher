@@ -111,7 +111,7 @@ public class Search extends Application
 			}) ;
 
 		// Retrieve all the applications without folders and the Search
-		ArrayList<Application> applications = ActivityMain.getApplicationsList().getApplications(false) ;
+		ArrayList<Application> applications = ActivityMain.getApplicationsList().getApplications() ;
 		Application search = null ;
 		for(Application application : applications)
 			if(application instanceof Search) search = application ;

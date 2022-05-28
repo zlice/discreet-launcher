@@ -34,12 +34,6 @@
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".menu.ActivityFolders"
-            android:label="@string/menu_folders"
-            android:parentActivityName=".ActivityMain"
-            android:theme="@style/AppTheme"/>
-
-        <activity
             android:name=".settings.ActivitySettingsAppearance"
             android:label="@string/menu_settings_appearance"
             android:parentActivityName=".ActivityMain"
@@ -50,30 +44,6 @@
             android:label="@string/menu_settings_operation"
             android:parentActivityName=".ActivityMain"
             android:theme="@style/AppTheme"/>
-
-        <activity
-            android:name=".settings.ActivityExportImport"
-            android:label="@string/menu_export_import"
-            android:parentActivityName=".settings.ActivitySettingsAppearance"
-            android:theme="@style/AppTheme"/>
-
-        <activity
-            android:name=".quickaccess.PopupFavorites"
-            android:theme="@style/AppThemeNotification"
-            android:excludeFromRecents="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".quickaccess.ShortcutCreator"
-            android:label="@string/notification_text"
-            android:excludeFromRecents="true">
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".events.ShortcutListener"

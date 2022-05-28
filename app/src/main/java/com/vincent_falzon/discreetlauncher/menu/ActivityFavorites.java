@@ -42,7 +42,6 @@ import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;
 import com.vincent_falzon.discreetlauncher.core.Application ;
-import com.vincent_falzon.discreetlauncher.core.Folder ;
 import com.vincent_falzon.discreetlauncher.storage.InternalFileTXT ;
 import java.util.ArrayList ;
 import java.util.Collections ;
@@ -97,7 +96,7 @@ public class ActivityFavorites extends AppCompatActivity implements View.OnClick
 
 		// Prepare the list of applications
 		final ArrayList<Application> applications = new ArrayList<>(ActivityMain.getApplicationsList().getFavorites()) ;
-		ArrayList<Application> allApplications = ActivityMain.getApplicationsList().getApplications(true) ;
+		ArrayList<Application> allApplications = ActivityMain.getApplicationsList().getApplications() ;
 		for(Application application : allApplications)
 			if(!applications.contains(application)) applications.add(application) ;
 
@@ -106,8 +105,7 @@ public class ActivityFavorites extends AppCompatActivity implements View.OnClick
 		int i = 0 ;
 		for(Application application : applications)
 		{
-			if(application instanceof Folder) app_names[i] = ((Folder)application).getDisplayNameWithCount() ;
-				else app_names[i] = application.getDisplayName() ;
+				app_names[i] = application.getDisplayName() ;
 			i++ ;
 		}
 
@@ -194,9 +192,7 @@ public class ActivityFavorites extends AppCompatActivity implements View.OnClick
 		public void onBindViewHolder(@NonNull final FavoriteView favoriteView, int i)
 		{
 			// Display the name of the favorite
-			if(favorites.get(i) instanceof Folder)
-					favoriteView.name.setText(((Folder)favorites.get(i)).getDisplayNameWithCount()) ;
-				else favoriteView.name.setText(favorites.get(i).getDisplayName()) ;
+				favoriteView.name.setText(favorites.get(i).getDisplayName()) ;
 
 			// Retrieve the icon of the favorite or use the folder icon instead
 			Drawable.ConstantState iconState = favorites.get(i).getIcon().getConstantState() ;

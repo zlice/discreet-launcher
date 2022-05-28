@@ -25,8 +25,8 @@ package com.vincent_falzon.discreetlauncher ;
 // Imports
 import android.content.Context ;
 import android.content.SharedPreferences ;
+import android.graphics.Color;
 import android.widget.Toast ;
-import com.vincent_falzon.discreetlauncher.settings.ColorPickerDialog ;
 
 /**
  * Provide utility methods used in various places of Discreet Launcher.
@@ -53,6 +53,17 @@ public abstract class Utils
 	}
 
 
+  /**
+   * Read an hexadecimal color string (#(AA)RRGGBB) and try to convert it to an "int" color.
+   * @throws IllegalArgumentException If the string format is not valid
+   */
+  public static int convertHexadecimalColorToInt(String hexadecimal) throws IllegalArgumentException
+  {
+    if(!hexadecimal.startsWith("#")) hexadecimal = "#" + hexadecimal ;
+    return Color.parseColor(hexadecimal) ;
+  }
+
+
 	/**
 	 * Retrieve the currently selected color for the given preference key.
 	 */
@@ -64,6 +75,6 @@ public abstract class Utils
 			hexadecimal = fallback ;
 
 		// Convert the hexadecimal color to an "int" color
-		return ColorPickerDialog.convertHexadecimalColorToInt(hexadecimal) ;
+		return convertHexadecimalColorToInt(hexadecimal) ;
 	}
 }

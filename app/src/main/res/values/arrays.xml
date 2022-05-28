@@ -8,23 +8,6 @@
         <item>none</item>
     </string-array>
 
-    <!-- Clock format -->
-    <string-array name="set_clock_format_values">
-        <item>none</item>
-        <item>HH:mm</item>
-        <item>h:mm</item>
-        <item>h:mm a</item>
-        <item>analog</item>
-        <item>datetime</item>
-    </string-array>
-
-    <!-- Clock position -->
-    <string-array name="set_clock_position_values">
-        <item>top</item>
-        <item>middle</item>
-        <item>bottom</item>
-    </string-array>
-
     <!-- Forced orientation -->
     <string-array name="set_forced_orientation_values">
         <item>none</item>
