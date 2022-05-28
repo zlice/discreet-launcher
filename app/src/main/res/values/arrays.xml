@@ -12,8 +12,6 @@
     <string-array name="set_forced_orientation_values">
         <item>none</item>
         <item>portrait</item>
-        <item>landscape</item>
-        <item>reverse_landscape</item>
     </string-array>
 
 </resources>

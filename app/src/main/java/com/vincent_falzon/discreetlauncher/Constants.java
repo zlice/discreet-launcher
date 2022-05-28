@@ -60,9 +60,6 @@ public interface Constants
 	String ICON_PACK_SECONDARY = "icon_pack_secondary" ;
 	String ICON_COLOR_FILTER = "icon_color_filter" ;
 	String NOTIFICATION = "notification" ;
-	String FORCED_ORIENTATION = "forced_orientation" ;
-	String ALWAYS_SHOW_FAVORITES = "always_show_favorites" ;
-	String REVERSE_INTERFACE = "reverse_interface" ;
 	String IMMERSIVE_MODE = "immersive_mode" ;
 	String TOUCH_TARGETS = "touch_targets" ;
 	String HIDE_MENU_BUTTON = "hide_menu_button" ;

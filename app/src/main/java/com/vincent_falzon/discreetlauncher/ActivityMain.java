@@ -70,7 +70,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   private int scroll_position ;
   private int scroll_last_position ;
   private int scroll_close_gesture ;
-  private boolean reverse_interface ;
 
   // Attributes related to the home screen
   private RelativeLayout homeScreen ;
@@ -113,10 +112,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     // Set the light or dark theme according to settings
     setApplicationTheme() ;
 
-    // Check if the interface should be reversed and define the appropriate layout
-    reverse_interface = settings.getBoolean(Constants.REVERSE_INTERFACE, false) ;
-    if(reverse_interface) setContentView(R.layout.activity_main_reverse) ;
-      else setContentView(R.layout.activity_main) ;
+    setContentView(R.layout.activity_main_reverse) ;
 
     // Initializations related to the interface
     dialogMenu = new DialogMenu(this) ;
@@ -180,11 +176,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         editor.apply() ;
       }
 
-    // Load the favorites panel if it should always be shown
-    if(settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false)) displayFavorites(true) ;
-
+    displayFavorites(true) ;
     // Hide the favorites panel and the drawer by default
-    displayFavorites(false) ;
     displayDrawer(false) ;
 
     // Start to listen for packages added or removed
@@ -226,36 +219,19 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
    */
   private void maybeForceOrientation()
   {
-    // Retrieve the current orientation setting
-    String forced_orientation = settings.getString(Constants.FORCED_ORIENTATION, Constants.NONE) ;
-    if(forced_orientation == null) forced_orientation = Constants.NONE ;
-
-    // Migrate from the old setting if needed (to remove later)
-    if(settings.getBoolean(Constants.OLD_FORCE_PORTRAIT, false))
-      {
-        forced_orientation = "portrait" ;
-        SharedPreferences.Editor editor = settings.edit() ;
-        editor.putBoolean(Constants.OLD_FORCE_PORTRAIT, false) ;
-        editor.putString(Constants.FORCED_ORIENTATION, forced_orientation) ;
-        editor.apply() ;
-      }
-
     // Apply the requested orientation
+    /*
     switch(forced_orientation)
     {
       case "portrait" :
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) ;
         break ;
-      case "landscape" :
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) ;
-        break ;
-      case "reverse_landscape" :
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) ;
-        break ;
       default :
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) ;
         break ;
     }
+    */
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) ;
   }
 
 
@@ -266,10 +242,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   {
     if(settings.getBoolean(Constants.TOUCH_TARGETS, false))
       {
-        // Display or not targets according to the settings
-        if(settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false))
-            targetFavorites.setVisibility(View.GONE) ;
-          else targetFavorites.setVisibility(View.VISIBLE) ;
+        targetFavorites.setVisibility(View.GONE) ;
         if(settings.getBoolean(Constants.DISABLE_APP_DRAWER, false))
             targetApplications.setVisibility(View.GONE) ;
           else targetApplications.setVisibility(View.VISIBLE) ;
@@ -288,8 +261,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   private void keepMenuAccessible()
   {
     // Do not continue if none of the risky settings is enabled
-    if(!(settings.getBoolean(Constants.DISABLE_APP_DRAWER, false) ||
-        settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false))) return ;
+    if(!settings.getBoolean(Constants.DISABLE_APP_DRAWER, false) ) return ;
 
     // Check if the menu button is visible
     if(!settings.getBoolean(Constants.HIDE_MENU_BUTTON, false)) return ;
@@ -328,13 +300,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     // Check if the number of favorites still allows to see the menu button
     if(applicationsList.getFavorites().size() <= max_favorites) return ;
 
-    // If favorites cannot be always shown safely, display a message and disable the setting
-    if(settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false))
-      {
-        Utils.displayLongToast(this, getString(R.string.error_always_show_favorites_not_safe)) ;
-        SharedPreferences.Editor editor = settings.edit() ;
-        editor.putBoolean(Constants.ALWAYS_SHOW_FAVORITES, false).apply() ;
-      }
+    Utils.displayLongToast(this, getString(R.string.error_always_show_favorites_not_safe)) ;
+    SharedPreferences.Editor editor = settings.edit() ;
   }
 
 
@@ -357,18 +324,9 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
 
         // Check if the interface is reversed and adjust the display accordingly
         Drawable tab_shape ;
-        if(reverse_interface)
-          {
-            // Reversed interface
-            tab_shape = ResourcesCompat.getDrawable(getResources(), R.drawable.shape_tab_reverse, null) ;
-            getWindow().setNavigationBarColor(background_color) ;
-          }
-          else
-          {
-            // Classic interface
-            tab_shape = ResourcesCompat.getDrawable(getResources(), R.drawable.shape_tab, null) ;
-            getWindow().setStatusBarColor(background_color) ;
-          }
+        // Reversed interface
+        tab_shape = ResourcesCompat.getDrawable(getResources(), R.drawable.shape_tab_reverse, null) ;
+        getWindow().setNavigationBarColor(background_color) ;
 
         // Color the menu button and favorites panel
         Drawable menuButtonBackground ;
@@ -391,25 +349,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         scroll_close_gesture = 0 ;
         favorites.setVisibility(View.VISIBLE) ;
         targetFavorites.setText(R.string.target_close_favorites) ;
-      }
-      else
-      {
-        // Do not continue if the option to always show the panel is selected
-        if(settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false)) return ;
-
-        // Hide the favorites panel
-        favorites.setVisibility(View.GONE) ;
-        menuButton.setVisibility(View.GONE) ;
-        noFavoritesYet.setVisibility(View.GONE) ;
-        targetFavorites.setText(R.string.target_open_favorites) ;
-
-        // If the option is selected, make the status bar fully transparent
-        if(settings.getBoolean(Constants.TRANSPARENT_STATUS_BAR, false))
-            getWindow().setStatusBarColor(getResources().getColor(R.color.transparent)) ;
-          else getWindow().setStatusBarColor(Utils.getColor(settings, Constants.BACKGROUND_COLOR_FAVORITES, Constants.COLOR_FOR_OVERLAY)) ;
-
-        // Make the navigation bar transparent
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.transparent)) ;
       }
   }
 
@@ -434,8 +373,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         getWindow().setNavigationBarColor(background_color) ;
 
         // Display the applications drawer
-        if(reverse_interface) scroll_position = applicationsList.getDrawer().size() - 1 ;
-          else scroll_position = 0 ;
+        scroll_position = applicationsList.getDrawer().size() - 1 ;
+
         scroll_last_position = scroll_position ;
         scroll_close_gesture = 0 ;
         homeScreen.setVisibility(View.GONE) ;
@@ -444,8 +383,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
       else
       {
         // Hide the applications drawer
-        if(reverse_interface) drawer.scrollToPosition(applicationsList.getDrawer().size() - 1) ;
-          else drawer.scrollToPosition(0) ;
+        drawer.scrollToPosition(applicationsList.getDrawer().size() - 1) ;
         homeScreen.setVisibility(View.VISIBLE) ;
         drawer.setVisibility(View.GONE) ;
 
@@ -458,9 +396,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
           else getWindow().setStatusBarColor(favorites_background_color) ;
 
         // Make the navigation bar transparent, unless in reverse interface with favorites always shown
-        if(reverse_interface && settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false))
-            getWindow().setNavigationBarColor(favorites_background_color) ;
-          else getWindow().setNavigationBarColor(getResources().getColor(R.color.transparent)) ;
+        getWindow().setNavigationBarColor(favorites_background_color) ;
       }
   }
 
@@ -774,15 +710,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         // Update the applications list
         updateList(this) ;
         break ;
-      // ========= Operation settings ==========
-      case Constants.REVERSE_INTERFACE :
-        // Change the interface direction
-        reverse_interface = settings.getBoolean(Constants.REVERSE_INTERFACE, false) ;
-        if(reverse_interface) setContentView(R.layout.activity_main_reverse) ;
-          else setContentView(R.layout.activity_main) ;
-        recreate() ;
-        updateList(this) ;
-        break ;
     }
   }
 
@@ -848,14 +775,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                     else
                     {
                       // If the scrolling is stuck on bottom/top (based on layout), close the app drawer
-                      if(reverse_interface)
-                        {
-                          if(scroll_position == (applicationsList.getDrawer().size() - 1)) displayDrawer(false) ;
-                        }
-                        else
-                        {
-                          if(scroll_position == 0) displayDrawer(false) ;
-                        }
+                      if(scroll_position == (applicationsList.getDrawer().size() - 1)) displayDrawer(false) ;
                     }
                 }
 
@@ -887,8 +807,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         else
         {
           // Update the position of the last/first visible item (based on layout)
-          if(reverse_interface) scroll_position = drawerLayout.findLastCompletelyVisibleItemPosition() ;
-            else scroll_position = drawerLayout.findFirstCompletelyVisibleItemPosition() ;
+          scroll_position = drawerLayout.findLastCompletelyVisibleItemPosition() ;
         }
     }
   }
@@ -901,7 +820,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   public void onBackPressed()
   {
     if(drawer.getVisibility() == View.VISIBLE) displayDrawer(false) ;
-      else if(favorites.getVisibility() == View.VISIBLE) displayFavorites(false) ;
+      //else if(favorites.getVisibility() == View.VISIBLE) displayFavorites(false) ;
   }
 
 
@@ -933,6 +852,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
   {
     // Let the parent actions be performed
     super.onResume() ;
+        homeScreen.setVisibility(View.VISIBLE) ;
 
     // Hide the favorites panel and the applications drawer
     keepMenuAccessible() ;
@@ -944,7 +864,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     maybeForceOrientation() ;
     toggleTouchTargets() ;
     maybeHideSystemBars(false) ;
-    if(settings.getBoolean(Constants.ALWAYS_SHOW_FAVORITES, false)) displayFavorites(true) ;
+    displayFavorites(true) ;
 
     // Update the favorites panel and applications drawer display if needed
     if(adapters_update_needed) updateAdapters() ;

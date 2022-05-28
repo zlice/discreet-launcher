@@ -60,8 +60,6 @@
     <string-array name="set_forced_orientation_entries">
         <item>None</item>
         <item>Portrait</item>
-        <item>Landscape</item>
-        <item>Reverse landscape</item>
     </string-array>
 
     <!-- Touch targets (accessibility) -->
@@ -72,9 +70,6 @@
     <string name="target_open_applications">Open\napps</string>
 
     <!-- Other operation settings -->
-    <string name="set_always_show_favorites">Always show favorites</string>
-    <string name="set_reverse_interface">Reversed interface</string>
-    <string name="set_reverse_interface_help">Apps above, and favorites below the home screen</string>
     <string name="set_immersive_mode">Immersive mode</string>
     <string name="set_immersive_mode_help">No system bars. (Can be forced by long-pressing the home screen.)</string>
     <string name="set_hide_menu_button">No menu button</string>

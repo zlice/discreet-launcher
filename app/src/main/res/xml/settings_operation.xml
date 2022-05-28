@@ -22,19 +22,6 @@
             app:useSimpleSummaryProvider="true"/>
 
         <SwitchPreference
-            app:key="always_show_favorites"
-            app:title="@string/set_always_show_favorites"
-            app:iconSpaceReserved="false"
-            app:defaultValue="false"/>
-
-        <SwitchPreference
-            app:key="reverse_interface"
-            app:title="@string/set_reverse_interface"
-            app:summary="@string/set_reverse_interface_help"
-            app:iconSpaceReserved="false"
-            app:defaultValue="false"/>
-
-        <SwitchPreference
             app:key="immersive_mode"
             app:title="@string/set_immersive_mode"
             app:summary="@string/set_immersive_mode_help"

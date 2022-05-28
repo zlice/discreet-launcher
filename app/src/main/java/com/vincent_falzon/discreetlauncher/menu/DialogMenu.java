@@ -62,7 +62,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 
 		// Initializations
 		initializeMenuEntry(R.id.menu_favorites) ;
-		initializeMenuEntry(R.id.menu_folders) ;
 		initializeMenuEntry(R.id.menu_hidden_apps) ;
 		initializeMenuEntry(R.id.menu_refresh_list) ;
 		initializeMenuEntry(R.id.menu_settings_appearance) ;

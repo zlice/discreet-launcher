@@ -17,12 +17,6 @@
             style="@style/MainMenu_Entry"/>
 
         <TextView
-            android:id="@+id/menu_folders"
-            android:text="@string/menu_folders"
-            app:drawableStartCompat="@drawable/ic_menu_archive"
-            style="@style/MainMenu_Entry"/>
-
-        <TextView
             android:id="@+id/menu_hidden_apps"
             android:text="@string/menu_hidden_apps"
             app:drawableStartCompat="@drawable/ic_menu_cut"
