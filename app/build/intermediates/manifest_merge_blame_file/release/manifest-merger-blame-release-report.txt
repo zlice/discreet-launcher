@@ -1,0 +1,115 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.vincent_falzon.discreetlauncher"
+4    android:versionCode="51"
+5    android:versionName="v6.3.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="31"
+8-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml
+10
+11    <!-- Required for Android 11+ (<queries> not applicable for Launcher applications) -->
+12    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+12-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:7:5-8:52
+12-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:7:22-74
+13
+14    <application
+14-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:10:5-60:19
+15        android:allowBackup="false"
+15-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:11:9-36
+16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+16-->[androidx.core:core:1.5.0] /home/zlice/.gradle/caches/transforms-2/files-2.1/1602505273d43f41d2f450ba7fa6ad4f/core-1.5.0/AndroidManifest.xml:24:18-86
+17        android:extractNativeLibs="false"
+18        android:icon="@mipmap/ic_launcher"
+18-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:12:9-43
+19        android:label="@string/app_name"
+19-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:13:9-41
+20        android:supportsRtl="false"
+20-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:15:9-36
+21        android:theme="@style/AppThemeTransparent" >
+21-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:14:9-51
+22        <activity
+22-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:17:9-29:20
+23            android:name="com.vincent_falzon.discreetlauncher.ActivityMain"
+23-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:18:13-41
+24            android:excludeFromRecents="false"
+24-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:22:13-47
+25            android:exported="true"
+25-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:21:13-36
+26            android:label="@string/app_name"
+26-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:19:13-45
+27            android:launchMode="singleTask" >
+27-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:20:13-44
+28            <intent-filter>
+28-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:23:13-28:29
+29                <action android:name="android.intent.action.MAIN" />
+29-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:24:17-68
+29-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:24:25-66
+30
+31                <category android:name="android.intent.category.LAUNCHER" />
+31-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:25:17-76
+31-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:25:27-74
+32                <category android:name="android.intent.category.HOME" />
+32-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:26:17-72
+32-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:26:27-70
+33                <category android:name="android.intent.category.DEFAULT" />
+33-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:27:17-75
+33-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:27:27-73
+34            </intent-filter>
+35        </activity>
+36        <activity
+36-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:31:9-35:46
+37            android:name="com.vincent_falzon.discreetlauncher.menu.ActivityFavorites"
+37-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:32:13-51
+38            android:label="@string/menu_favorites"
+38-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:33:13-51
+39            android:parentActivityName="com.vincent_falzon.discreetlauncher.ActivityMain"
+39-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:34:13-55
+40            android:theme="@style/AppTheme" />
+40-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:35:13-44
+41        <activity
+41-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:37:9-41:46
+42            android:name="com.vincent_falzon.discreetlauncher.settings.ActivitySettingsAppearance"
+42-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:38:13-64
+43            android:label="@string/menu_settings_appearance"
+43-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:39:13-61
+44            android:parentActivityName="com.vincent_falzon.discreetlauncher.ActivityMain"
+44-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:40:13-55
+45            android:theme="@style/AppTheme" />
+45-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:41:13-44
+46        <activity
+46-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:43:9-47:46
+47            android:name="com.vincent_falzon.discreetlauncher.settings.ActivitySettingsOperation"
+47-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:44:13-63
+48            android:label="@string/menu_settings_operation"
+48-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:45:13-60
+49            android:parentActivityName="com.vincent_falzon.discreetlauncher.ActivityMain"
+49-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:46:13-55
+50            android:theme="@style/AppTheme" />
+50-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:47:13-44
+51        <activity
+51-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:49:9-58:20
+52            android:name="com.vincent_falzon.discreetlauncher.events.ShortcutListener"
+52-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:50:13-52
+53            android:excludeFromRecents="true"
+53-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:53:13-46
+54            android:exported="true"
+54-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:52:13-36
+55            android:parentActivityName="com.vincent_falzon.discreetlauncher.ActivityMain" >
+55-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:51:13-55
+56            <intent-filter>
+56-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:54:13-57:29
+57                <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
+57-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:55:17-88
+57-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:55:25-86
+58
+59                <category android:name="android.intent.category.DEFAULT" />
+59-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:27:17-75
+59-->/home/zlice/git/discreet-launcher/app/src/main/AndroidManifest.xml:27:27-73
+60            </intent-filter>
+61        </activity>
+62    </application>
+63
+64</manifest>

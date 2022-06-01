@@ -32,7 +32,7 @@ import android.graphics.Canvas ;
 import android.graphics.drawable.Drawable ;
 import android.os.Build ;
 import android.os.Bundle ;
-import androidx.appcompat.app.AppCompatActivity ;
+import android.app.Activity ;
 import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;
@@ -44,7 +44,7 @@ import java.util.ArrayList ;
 /**
  * Activity called to add a shortcut (starting with Android Oreo).
  */
-public class ShortcutListener extends AppCompatActivity
+public class ShortcutListener extends Activity
 {
 	/**
 	 * Constructor.

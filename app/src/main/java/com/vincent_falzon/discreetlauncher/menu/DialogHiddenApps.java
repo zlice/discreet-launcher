@@ -26,7 +26,7 @@ package com.vincent_falzon.discreetlauncher.menu ;
 import android.content.Context ;
 import android.content.DialogInterface ;
 import android.content.Intent ;
-import androidx.appcompat.app.AlertDialog ;
+import android.app.AlertDialog ;
 import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.Constants ;
 import com.vincent_falzon.discreetlauncher.R ;

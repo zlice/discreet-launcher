@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "MERGED_MANIFESTS",
+    "kind": "Directory"
+  },
+  "applicationId": "com.vincent_falzon.discreetlauncher",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 51,
+      "versionName": "v6.3.0",
+      "outputFile": "AndroidManifest.xml"
+    }
+  ]
+}

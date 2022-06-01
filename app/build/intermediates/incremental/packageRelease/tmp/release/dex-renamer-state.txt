@@ -1,0 +1,4 @@
+#Tue May 31 23:55:05 EDT 2022
+base.0=/home/zlice/git/discreet-launcher/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

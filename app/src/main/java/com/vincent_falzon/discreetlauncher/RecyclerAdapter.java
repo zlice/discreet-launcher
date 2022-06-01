@@ -29,7 +29,7 @@ import android.content.Context ;
 import android.content.DialogInterface ;
 import android.content.Intent ;
 import androidx.annotation.NonNull ;
-import androidx.appcompat.app.AlertDialog ;
+import android.app.AlertDialog ;
 import androidx.preference.PreferenceManager ;
 import androidx.recyclerview.widget.RecyclerView ;
 import android.content.SharedPreferences ;

@@ -13,31 +13,26 @@
         <TextView
             android:id="@+id/menu_favorites"
             android:text="@string/menu_favorites"
-            app:drawableStartCompat="@drawable/ic_menu_star"
             style="@style/MainMenu_Entry"/>
 
         <TextView
             android:id="@+id/menu_hidden_apps"
             android:text="@string/menu_hidden_apps"
-            app:drawableStartCompat="@drawable/ic_menu_cut"
             style="@style/MainMenu_Entry"/>
 
         <TextView
             android:id="@+id/menu_refresh_list"
             android:text="@string/menu_refresh_list_apps"
-            app:drawableStartCompat="@drawable/ic_menu_refresh"
             style="@style/MainMenu_Entry"/>
 
         <TextView
             android:id="@+id/menu_settings_appearance"
             android:text="@string/menu_settings_appearance"
-            app:drawableStartCompat="@drawable/ic_menu_gallery"
             style="@style/MainMenu_Entry"/>
 
         <TextView
             android:id="@+id/menu_settings_operation"
             android:text="@string/menu_settings_operation"
-            app:drawableStartCompat="@drawable/ic_menu_preferences"
             style="@style/MainMenu_Entry"/>
 
     </LinearLayout>

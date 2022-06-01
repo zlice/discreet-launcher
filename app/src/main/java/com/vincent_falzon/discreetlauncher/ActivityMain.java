@@ -30,8 +30,7 @@ import android.graphics.drawable.Drawable ;
 import android.os.Build ;
 import android.os.Bundle ;
 import androidx.annotation.NonNull ;
-import androidx.appcompat.app.AppCompatActivity ;
-import androidx.appcompat.app.AppCompatDelegate ;
+import android.app.Activity ;
 import androidx.core.content.res.ResourcesCompat ;
 import androidx.core.graphics.drawable.DrawableCompat ;
 import androidx.core.view.GestureDetectorCompat ;
@@ -53,7 +52,7 @@ import com.vincent_falzon.discreetlauncher.menu.DialogMenu ;
 /**
  * Main class activity managing the home screen and applications drawer.
  */
-public class ActivityMain extends AppCompatActivity implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener
+public class ActivityMain extends Activity implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener
 {
   // Attributes
   private static ApplicationsList applicationsList ;
@@ -195,6 +194,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
    */
   private void setApplicationTheme()
   {
+    return;
+    /*
     String theme = settings.getString(Constants.APPLICATION_THEME, Constants.NONE) ;
     if(theme == null) return ;
     switch(theme)
@@ -208,6 +209,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
       case Constants.NONE :
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) ;
     }
+    */
   }
 
 

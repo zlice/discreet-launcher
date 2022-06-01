@@ -31,8 +31,8 @@ import android.view.MotionEvent ;
 import android.view.View ;
 import android.view.ViewGroup ;
 import android.widget.TextView ;
-import androidx.appcompat.app.AlertDialog ;
-import androidx.appcompat.app.AppCompatDialog ;
+import android.app.AlertDialog ;
+import android.app.Dialog ;
 import com.vincent_falzon.discreetlauncher.ActivityMain ;
 import com.vincent_falzon.discreetlauncher.R ;
 import com.vincent_falzon.discreetlauncher.settings.ActivitySettingsAppearance ;
@@ -41,7 +41,7 @@ import com.vincent_falzon.discreetlauncher.settings.ActivitySettingsOperation ;
 /**
  * Display the main menu of Discreet Launcher.
  */
-public class DialogMenu extends AppCompatDialog implements View.OnClickListener, View.OnTouchListener
+public class DialogMenu extends Dialog implements View.OnClickListener, View.OnTouchListener
 {
 	// Attributes
 	private final View dialogView ;

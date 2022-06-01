@@ -32,9 +32,9 @@ import android.view.View ;
 import android.view.ViewGroup ;
 import android.widget.TextView ;
 import androidx.annotation.NonNull ;
-import androidx.appcompat.app.AlertDialog ;
-import androidx.appcompat.app.AppCompatActivity ;
-import androidx.appcompat.content.res.AppCompatResources ;
+import android.app.AlertDialog ;
+import android.app.Activity ;
+import android.content.res.Resources ;
 import androidx.recyclerview.widget.ItemTouchHelper ;
 import androidx.recyclerview.widget.LinearLayoutManager ;
 import androidx.recyclerview.widget.RecyclerView ;
@@ -49,7 +49,7 @@ import java.util.Collections ;
 /**
  * Allow to manage favorites.
  */
-public class ActivityFavorites extends AppCompatActivity implements View.OnClickListener
+public class ActivityFavorites extends Activity implements View.OnClickListener
 {
 	// Attributes
 	private ArrayList<Application> favorites ;
@@ -70,7 +70,7 @@ public class ActivityFavorites extends AppCompatActivity implements View.OnClick
 
 		// Initializations
 		setContentView(R.layout.activity_favorites) ;
-		folder_icon = AppCompatResources.getDrawable(this, R.drawable.icon_folder) ;
+		//folder_icon = Resources.getDrawable(this, R.drawable.icon_folder) ;
 		icon_size = Math.round(32 * getResources().getDisplayMetrics().density) ;
 		favorites = ActivityMain.getApplicationsList().getFavorites() ;
 		findViewById(R.id.select_favorites_button).setOnClickListener(this) ;
