@@ -1,0 +1,31 @@
+apktool https://ibotpeaches.github.io/Apktool/
+
+https://stackoverflow.com/questions/69667830/targeting-r-version-30-and-above-requires-the-resources-arsc-of-installed-apk
+
+^^^ saving grace
+
+png redux
+
+convert $redo.png -depth 1 -colors 2 $redo.2.png
+convert $redo.2.png -type palette -fuzz 1% -transparent black -depth 1 $redo.new.png
+mv $redo.new.png $redo.png
+
+easier
+
+f png$ | while read in ; do redo=$(echo $in | sed -e 's/.png//g') ; convert $redo.png png8:swap.png ; mv swap.png $redo.png ; done
+
+apktool extract apk
+png trim (dont even think they matter really?)
+
+BUILD_TOOLS=~/Android/Sdk/build-tools/32.0.0/
+
+zip -n "resources.arsc" -qr ../app-release2.apk *
+  ^^^ stage 2
+
+$BUILD_TOOLS/zipalign -p -v 4 app-release2.apk app-release3.apk
+
+$BUILD_TOOLS/apksigner sign -verbose -ks /home/zlice/Android/keys/zlice.keystore --out app-signed.apk app-release3.apk 
+
+sign and finally install
+
+under 1mb phew prayge
