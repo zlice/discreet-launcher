@@ -28,8 +28,6 @@
             app:drawableStartCompat="@drawable/ic_menu_refresh"
             style="@style/MainMenu_Entry"/>
 
-        <View style="@style/MainMenu_Divider"/>
-
         <TextView
             android:id="@+id/menu_settings_appearance"
             android:text="@string/menu_settings_appearance"
@@ -40,20 +38,6 @@
             android:id="@+id/menu_settings_operation"
             android:text="@string/menu_settings_operation"
             app:drawableStartCompat="@drawable/ic_menu_preferences"
-            style="@style/MainMenu_Entry"/>
-
-        <View style="@style/MainMenu_Divider"/>
-
-        <TextView
-            android:id="@+id/menu_help"
-            android:text="@string/menu_help"
-            app:drawableStartCompat="@drawable/ic_menu_help"
-            style="@style/MainMenu_Entry"/>
-
-        <TextView
-            android:id="@+id/menu_about"
-            android:text="@string/menu_about"
-            app:drawableStartCompat="@drawable/ic_menu_info_details"
             style="@style/MainMenu_Entry"/>
 
     </LinearLayout>

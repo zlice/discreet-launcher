@@ -66,8 +66,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 		initializeMenuEntry(R.id.menu_refresh_list) ;
 		initializeMenuEntry(R.id.menu_settings_appearance) ;
 		initializeMenuEntry(R.id.menu_settings_operation) ;
-		initializeMenuEntry(R.id.menu_help) ;
-		initializeMenuEntry(R.id.menu_about) ;
 	}
 
 
@@ -122,24 +120,6 @@ public class DialogMenu extends AppCompatDialog implements View.OnClickListener,
 			{
 				// Open the Settings > Operation activity
 				context.startActivity(new Intent().setClass(context, ActivitySettingsOperation.class)) ;
-			}
-			else if(selection == R.id.menu_help)
-			{
-				// Display the Help without dismissing the menu
-				AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
-				dialog.setView(R.layout.dialog_help) ;
-				dialog.setPositiveButton(R.string.button_close, null) ;
-				dialog.show() ;
-				return ;
-			}
-			else if(selection == R.id.menu_about)
-			{
-				// Display the About without dismissing the menu
-				AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
-				dialog.setView(R.layout.dialog_about) ;
-				dialog.setPositiveButton(R.string.button_close, null) ;
-				dialog.show() ;
-				return ;
 			}
 
 		// Dismiss the menu
