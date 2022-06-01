@@ -141,12 +141,9 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     toggleTouchTargets() ;
     maybeHideSystemBars(false) ;
 
-    // Define the width of an application item
-    int padding ;
-    if(settings.getBoolean(Constants.HIDE_APP_NAMES, false)
-        && settings.getBoolean(Constants.REMOVE_PADDING, false)) padding = 0 ;
-      else padding = 30 ;
-    application_width = Math.round((50 + padding) * density) ;
+    // zlice - use max column to get width
+    int total_width = Math.min(getResources().getDisplayMetrics().heightPixels, getResources().getDisplayMetrics().widthPixels);
+    application_width = Math.round((total_width / 5) ); // 5 col
 
     // Initialize the content of the favorites panel
     favoritesAdapter = new RecyclerAdapter(this, applicationsList.getFavorites(), Constants.FAVORITES_PANEL) ;
@@ -290,12 +287,15 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         - Math.round(25 * density)  // Remove 25dp for the status bar
         - Math.round(20 * density)  // Remove 20dp for button margins and spare
         - menu_button_height ;
-
+/*
     // Define the size of an app (icon + margins + text estimation) and the maximum number of favorites
     int app_size = Math.round(48 * density) ;
     if(!settings.getBoolean(Constants.REMOVE_PADDING, false)) app_size += Math.round(20 * density) ;
     if(!settings.getBoolean(Constants.HIDE_APP_NAMES, false)) app_size += menu_button_height ;
-    int max_favorites = 4 * (total_size / app_size) ;
+    int max_favorites = 5 * (total_size / app_size) ;
+*/
+    // zlice - use application_width for max size, not likely ill hit it anyway
+    int max_favorites = 4 * (total_size / application_width) ;
 
     // Check if the number of favorites still allows to see the menu button
     if(applicationsList.getFavorites().size() <= max_favorites) return ;
